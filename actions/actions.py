@@ -93,7 +93,7 @@ def update_key_for_customer(customer_id, campaign_group, caller_id, valueContest
         },
         {
             "$set": {
-                "name": "hites_derivacion",
+                "flujo": "hites_derivacion",
                 "contesta": valueContesta,
                 "corta": value_to_set,
                 "es_persona_correcta": None,
