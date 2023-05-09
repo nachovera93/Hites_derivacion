@@ -75,7 +75,7 @@ responses:
   utter_donde:
   - text: Estamos llamando de la empresa effectiva por un encargo de hites.
   utter_donde2:
-  - text: Estamos llamando la empresa effectiva por un encargo de hites ​¿Desea que lo atienda un ejecutivo para que pueda explicarle todas sus opciones y beneficios?.
+  - text: Estamos llamando la empresa effectiva por un encargo de i tes ​¿Desea que lo atienda un ejecutivo para que pueda explicarle todas sus opciones y beneficios?.
   utter_no_paga:
   - text: Muchas gracias por su atención, y en caso de cambiar de opinión nos puede contactar al número 232012772, que tenga buen dia. | EXIT
   utter_tranfiere:
