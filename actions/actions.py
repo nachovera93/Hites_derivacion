@@ -14,14 +14,7 @@ global compromiso_p
 global derivacion
 global fecha_com
 global entrega_info
-SiPaga=None
-NoPaga=None
-motivo=None
-tipo_contacto=0
-compromiso_p=0
-derivacion=None
-fecha_com=None
-entrega_info=None
+
 
 
 CONNECTION_STRING = "mongodb://172.16.1.41:27017,172.16.1.42:27017,172.16.1.43:27017/?replicaSet=haddacloud-rs&readPreference=secondaryPreferred"
@@ -39,7 +32,7 @@ class SetNameAction(Action):
         try:
             splits = tracker.sender_id
             customer_id,campaign_group,caller_id,phone_number = splits.split('|')
-            names = getNameByCustomerID(customer_id)
+            names = getNameByCustomerID(customer_id,organization_id)
             print(names)
         except:
             names = "Jose Miguel"
@@ -62,7 +55,7 @@ class SetNameAction(Action):
 
 
 
-def getNameByCustomerID(customer_id):
+def getNameByCustomerID(customer_id,organization_id):
 
     mydb = myclient["haddacloud-v2"]
     mycol = mydb["deudors"]
@@ -96,12 +89,13 @@ def update_key_for_customer(customer_id, campaign_group, caller_id, valueContest
                 "flujo": "hites_derivacion",
                 "contesta": valueContesta,
                 "corta": value_to_set,
+                "derivado_o_no": None,
                 "es_persona_correcta": None,
                 "conoce_o_no": None,
                 "opcion_pago": None,
                 "paga_o_no": None,
                 "name": names,
-                "monto": deuda_mora,
+                "monto": None,
                 "fecha_vcto": None,
                 "fecha_pago": None,
                 "phone_number": phone_number,
@@ -264,18 +258,17 @@ class ActionSiPaga(Action):
         # Imprimir el nombre de la intención
         print(f'current_intent: {current_intent}')
         print(f'current_intent: {type(current_intent)}')
-        if(current_intent=="opcion_1"):
-            current_intent="Renegociar"
-        elif(current_intent=="opcion_2"):
-            current_intent="Reagendar"
-        elif(current_intent=="opcion_3"):
-            current_intent="Asesoria"
+        if(current_intent=="afirmación"):
+            current_intent="Si"
+        elif(current_intent=="negación"):
+            current_intent="No"
         else:
            current_intent = None
 
         slots_to_update = [
             "name",
             "es_persona_correcta",
+            "derivado_o_no",
             "conoce_o_no",
             "fecha_vcto",
             "fecha_pago",
@@ -310,16 +303,16 @@ class ActionSiPaga(Action):
         {
             "$set": {
                 "name": "hites_derivacion",
-                "contesta":"si",
-                "corta": "no",
+                "contesta":"Si",
+                "corta": "No",
                 "es_persona_correcta": updated_slots["es_persona_correcta"],
                 "conoce_o_no": updated_slots["conoce_o_no"],
                 "opcion_pago": current_intent,
-                "paga_o_no": updated_slots["paga_o_no"],
+                "paga_o_no": None,
                 "name": updated_slots["name"],
-                "monto": updated_slots["monto"],
-                "fecha_vcto": updated_slots["fecha_vcto"],
-                "fecha_pago": updated_slots["fecha_pago"],
+                "monto": None,
+                "fecha_vcto": None,
+                "fecha_pago": None,
                 "phone_number": updated_slots["phone_number"],
                 "created_at": datetime.datetime.now(),
                 "updated_at": datetime.datetime.now()
