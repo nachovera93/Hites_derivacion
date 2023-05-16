@@ -307,7 +307,7 @@ class ActionSiPaga(Action):
                 "corta": "No",
                 "es_persona_correcta": updated_slots["es_persona_correcta"],
                 "conoce_o_no": updated_slots["conoce_o_no"],
-                "opcion_pago": current_intent,
+                "opcion_pago": None,
                 "paga_o_no": None,
                 "name": updated_slots["name"],
                 "monto": None,
