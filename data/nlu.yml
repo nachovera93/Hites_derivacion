@@ -70,7 +70,7 @@ nlu:
     - [te](respuesta)
     - [t](respuesta)
     - [si](respuesta)
-    - [si] con el aula(respuesta)
+    - [si](respuesta) con el aula
 
 - intent: negación
   examples: |
