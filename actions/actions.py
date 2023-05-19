@@ -320,6 +320,7 @@ class ActionSiPaga(Action):
                 "name": "hites_derivacion",
                 "contesta":"si",
                 "corta": "no",
+                "derivado_o_no":current_intent.lower(),
                 "es_persona_correcta": updated_slots["es_persona_correcta"],
                 "conoce_o_no": updated_slots["conoce_o_no"],
                 "opcion_pago": None,
